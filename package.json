@@ -1,0 +1,28 @@
+{
+  "name": "url-shortener",
+  "version": "1.0.0",
+  "description": "Url Shortener",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DamianFox/url-shortener.git"
+  },
+  "keywords": [
+    "node"
+  ],
+  "author": "Damiano Fossa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DamianFox/url-shortener/issues"
+  },
+  "homepage": "https://damianofossa.com",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "mongodb": "^3.0.7",
+    "mongoose": "^5.0.16"
+  }
+}

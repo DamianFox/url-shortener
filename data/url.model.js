@@ -8,7 +8,7 @@ var urlSchema = new mongoose.Schema({
   short_url: {
     type: String,
     required: true
-  },
+  }
 },{
     versionKey: false
 });

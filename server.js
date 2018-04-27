@@ -1,3 +1,4 @@
+require('./data/db.js');
 var express = require('express');
 var app = express();
 var path = require('path');
@@ -20,10 +21,10 @@ app.use('/node_modules', express.static(__dirname + '/node_modules'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// var routes = require('./routes');
+var routes = require('./routes');
 
 // Add some routing
-// app.use('/', routes);
+app.use('/', routes);
 
 // Listen for requests
 var server = app.listen(app.get('port'), function() {

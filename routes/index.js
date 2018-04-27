@@ -5,7 +5,8 @@ var router = express.Router();
 router
   .route('/new')
   .get(function(req, res) {
-	res.render('index');
+	res.status(200)
+		.json("/new route");
   });
 
 

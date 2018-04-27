@@ -43,3 +43,4 @@ process.on('SIGTERM', function() {
 });
 
 // SCHEMAS & MODELS
+require('./url.model');

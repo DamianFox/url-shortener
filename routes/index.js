@@ -1,13 +1,12 @@
 var express = require('express');
 var router = express.Router();
 
+var ctrlUrls = require('../controllers/url.controllers.js');
+
 // Todo routes
 router
   .route('/new')
-  .get(function(req, res) {
-	res.status(200)
-		.json("/new route");
-  });
+  .post(ctrlUrls.urlAddOne);
 
 
 module.exports = router;

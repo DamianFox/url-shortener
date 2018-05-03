@@ -3,7 +3,7 @@ var router = express.Router();
 
 var ctrlUrls = require('../controllers/url.controllers.js');
 
-// Todo routes
+// Url routes
 router
   .route('/new')
   .post(ctrlUrls.urlAddOne);

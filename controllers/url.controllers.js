@@ -71,6 +71,36 @@ module.exports.urlGetOne = function(req, res) {
 	});
 };
 
+// DELETE one specific Url by ID
+module.exports.urlDeleteOne = function(req, res) {
+	var id = req.params.urlId;
+
+	console.log('DELETE urlId', id);
+
+	Url
+	.findByIdAndRemove(id)
+	.exec(function(err, doc) {
+	  var response = {
+	    status : 204,
+	    message : doc
+	  };
+	  if (err) {
+	    console.log("Error finding url");
+	    response.status = 500;
+	    response.message = err;
+	  } else if(!doc) {
+	    console.log("urlId not found in database", id);
+	    response.status = 404;
+	    response.message = {
+	      "message" : "url ID not found " + id
+	    };
+	  }
+	  res
+	    .status(response.status)
+	    .json(response.message);
+	});
+}
+
 
 function validateURL(url) {
     // Regex from https://gist.github.com/dperini/729294

@@ -11,6 +11,7 @@ router
 router
   .route('/urls/:urlId')
   .get(ctrlUrls.urlGetOne)
+  .delete(ctrlUrls.urlDeleteOne);
 
 
 module.exports = router;

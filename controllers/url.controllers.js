@@ -8,11 +8,11 @@ module.exports.urlAddOne = function(req, res) {
 
 	var url = req.body.url;
 
-    var num = Math.floor(100000 + Math.random() * 900000);
+  var num = Math.floor(100000 + Math.random() * 900000);
 
-    var hostname = req.headers.host;
+  var hostname = req.headers.host;
 
-    if (validateURL(url)) {
+  if (validateURL(url)) {
 		Url
 		.create({
 	  		original_url : url,
@@ -45,29 +45,28 @@ module.exports.urlGetOne = function(req, res) {
 
 	var id = req.params.urlId;
 
-	console.log('GET urlId', id);
-
 	Url
 	.findById(id)
 	.exec(function(err, doc) {
-	  var response = {
-	    status : 200,
-	    message : doc
-	  };
-	  if (err) {
-	    console.log("Error finding url");
-	    response.status = 500;
-	    response.message = err;
-	  } else if(!doc) {
-	    console.log("urlId not found in database", id);
-	    response.status = 404;
-	    response.message = {
-	      "message" : "url ID not found " + id
-	    };
-	  }
-	  res
-	    .status(response.status)
-	    .json(response.message);
+		console.log("doc", doc);
+		var response = {
+			status : 200,
+			message : doc
+		};
+		if (err) {
+			console.log("Error finding url");
+			response.status = 500;
+			response.message = err;
+		} else if(!doc) {
+			console.log("urlId not found in database", id);
+			response.status = 404;
+			response.message = {
+		  		"message" : "url ID not found " + id
+			};
+		}
+		res
+		.status(response.status)
+		.json(response.message);
 	});
 };
 
@@ -101,6 +100,31 @@ module.exports.urlDeleteOne = function(req, res) {
 	});
 }
 
+module.exports.getOriginalUrl = function(req, res) {
+	var hostname = req.headers.host;
+	if (req.params.num != 'favicon.ico') {
+		var shortUrl = hostname + "/" + req.params.num;
+		console.log("shortUrl", shortUrl);
+
+		Url
+		.findOne({
+			"short_url": shortUrl
+		}, function(err, url) {
+      if (err) throw err;
+      // object of the url
+      if (url) {
+        // we have a result
+        console.log('Found ' + url);
+        console.log('Redirecting to: ' + url.original_url);
+        res.redirect(url.original_url);
+      } else {
+        // url not found
+        res.send('Site not found');
+      }
+    });
+	}
+
+}
 
 function validateURL(url) {
     // Regex from https://gist.github.com/dperini/729294

@@ -9,9 +9,13 @@ router
   .post(ctrlUrls.urlAddOne);
 
 router
-  .route('/urls/:urlId')
+  .route('/url/:urlId')
   .get(ctrlUrls.urlGetOne)
   .delete(ctrlUrls.urlDeleteOne);
+
+router
+  .route('/:num')
+  .get(ctrlUrls.getOriginalUrl)
 
 
 module.exports = router;

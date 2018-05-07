@@ -12,31 +12,54 @@ module.exports.urlAddOne = function(req, res) {
 
   var hostname = req.headers.host;
 
+  var urlFound = false;
+
   if (validateURL(url)) {
 		Url
-		.create({
+		.findOne({
+			"original_url": url
+		}, function(err, url) {
+      if (err) throw err;
+      if (url) {
+      	urlObj = {
+    			"error": "Url already in use"
+    		};
+    		res
+    			.status(400)
+    			.json(urlObj);
+    		urlFound = true;
+      } else {
+        // url not found
+        urlFound = false;
+      }
+    });
+
+		if(!urlFound){
+			Url
+			.create({
 	  		original_url : url,
 	  		short_url : hostname + "/" + num.toString().substring(0, 6)
-		}, function(err, url) {
-	  		if (err) {
-		    	console.log("Error creating url");
-		    	res
+			}, function(err, url) {
+		  		if (err) {
+			    	console.log("Error creating url");
+			    	res
 		      		.status(400)
 		      		.json(err);
-	  		} else {
-	    		console.log("Short Url created!");
-	    		res
+		  		} else {
+		    		console.log("Short Url created!");
+		    		res
 	      			.status(201)
 	      			.json(url);
-	  		}
-		});
+		  		}
+			});
+		}
 	} else {
 		urlObj = {
-			"error": "No short url found for given input"
+			"error": "Url not valid"
 		};
 		res
 			.status(500)
-  			.json(urlObj);
+			.json(urlObj);
 	}
 };
 
@@ -111,9 +134,7 @@ module.exports.getOriginalUrl = function(req, res) {
 			"short_url": shortUrl
 		}, function(err, url) {
       if (err) throw err;
-      // object of the url
       if (url) {
-        // we have a result
         console.log('Found ' + url);
         console.log('Redirecting to: ' + url.original_url);
         res.redirect(url.original_url);

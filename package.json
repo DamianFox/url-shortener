@@ -2,7 +2,7 @@
   "name": "url-shortener",
   "version": "1.0.0",
   "description": "Url Shortener",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },

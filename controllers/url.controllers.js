@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
 var Url = mongoose.model('Url');
-var urlMod = require('url') ;
 
 // POST a new Url
 module.exports.urlAddOne = (req, res) => {
@@ -8,13 +7,13 @@ module.exports.urlAddOne = (req, res) => {
 
 	var url = req.body.url;
 
-  var num = Math.floor(100000 + Math.random() * 900000);
+	var num = Math.floor(100000 + Math.random() * 900000);
 
-  var hostname = req.headers.host;
+	var hostname = req.headers.host;
 
-  var urlFound = false;
+	var urlFound = false;
 
-  if (validateURL(url)) {
+	if (validateURL(url)) {
 		Url
 		.findOne({
 			"original_url": url

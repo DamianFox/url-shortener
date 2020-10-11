@@ -15,7 +15,7 @@ router
 
 router
   .route('/:num')
-  .get(ctrlUrls.getOriginalUrl)
+  .get(ctrlUrls.getOriginalUrl);
 
 
 module.exports = router;
